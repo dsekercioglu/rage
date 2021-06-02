@@ -52,9 +52,9 @@ pub struct GameData {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Team: ");
     let mut team = None;
     while team.is_none() {
+        println!("Team(A/B): ");
         let input: String = read!("{}\n");
         if input == "A" {
             team = Some(Team::A);
@@ -63,7 +63,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     let team = team.unwrap();
-    let mut post_url = match team {
+    let post_url = match team {
         Team::A => {
             POST_URL_A
         }
@@ -71,11 +71,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             POST_URL_B
         }
     };
+    println!("Map: ");
+    let mut map = None;
+    while map.is_none() {
+        println!("Map(A/B/C): ");
+        let input: String = read!("{}\n");
+        if input == "A" {
+            map = Some("./maps/MapA.json");
+        } else if input == "B" {
+            map = Some("./maps/MapB.json");
+        } else if input == "C" {
+            map = Some("./maps/MapC.json");
+        }
+    };
 
     let client = reqwest::blocking::Client::new();
     let environment = Arc::new(Mutex::new(Env::new(10)));
     //
-    let map = Arc::new(Map::new_map_a());
+    let map = Arc::new(Map::map_from_file(map.unwrap()));
     let mut controller = Controller::new(environment.clone(), map.clone(), team);
 
     let time = Instant::now();

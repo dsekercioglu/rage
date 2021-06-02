@@ -155,7 +155,7 @@ const CONTAINER_SIDE: Vec2 = Vec2::new(63.5487 * 2.2, 31.6329 * 2.2);
 const CONTAINER_AREA: Vec2 = Vec2::new(63.5487 * 2.2, 31.6329 * 2.2);
 const CAR_A_B: Vec2 = Vec2::new(36.046 * 2.1, 14.837 * 2.1);
 const CAR_C: Vec2 = Vec2::new(33.878 * 2.1, 13.789 * 2.1);
-const BARREL: f32 = 61.0818 * 0.3;
+const BARREL: f32 = 61.0818 * 0.7;
 
 impl Map {
     pub fn new_map_a() -> Self {
@@ -718,6 +718,207 @@ impl Map {
         std::fs::write("./maps/MapB.json", serde_json::to_string(&shapes).unwrap());
         Map {
             shapes: Arc::new(serde_json::from_str(&std::fs::read_to_string("./maps/MapB.json").unwrap()).unwrap()),
+        }
+    }
+
+    pub fn new_map_c() -> Self {
+        let shapes = vec![
+            Rect {
+                pos: Vec2::new(56.332, 613.317),
+                w_h: CONTAINER_SIDE,
+            },
+            Rect {
+                pos: Vec2::new(-70.1838, 613.733),
+                w_h: CONTAINER_SIDE,
+            },
+            Rect {
+                pos: Vec2::new(183.332, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(309.902, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(436.902, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(564.547, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(691.547, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(818.117, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(945.117, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(1072.41, 613.317),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(127.629, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(1.1134, -13.6822),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(-123.657, -13.6822),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(254.629, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(381.199, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(508.199, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(635.844, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(762.844, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(889.414, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, Rect {
+                pos: Vec2::new(1016.41, -14.0987),
+                w_h: CONTAINER_SIDE,
+
+            }, RotRect {
+                pos: Vec2::new(1143.71, -14.0987),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(1149.52, 652.298),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(1149.58, 525.707),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(1150.03, 272.042),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(1150.03, 145.474),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(1150.03, 17.8873),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 652.126),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 525.054),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 398.365),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 271.774),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 145.205),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, RotRect {
+                pos: Vec2::new(-128.915, 18.6273),
+                w_h: CONTAINER_SIDE,
+                rot: std::f32::consts::FRAC_PI_2,
+            }, Circle {
+                pos: Vec2::new(238.262, 38.2629),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(238.262, 194.94),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(417.426, 108.972),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(417.426, 279.644),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(71.308, 108.972),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(417.426, 460.431),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(71.308, 279.644),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(71.308, 460.431),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(238.262, 374.14),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(238.262, 558.237),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(610.379, 38.2629),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(610.379, 194.94),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(792.794, 108.972),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(792.794, 279.644),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(792.794, 460.431),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(610.379, 374.14),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(610.379, 558.237),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(992.247, 194.94),
+                r: BARREL,
+            }, Circle {
+                pos: Vec2::new(992.247, 374.14),
+                r: BARREL,
+            }];
+
+        std::fs::write("./maps/MapC.json", serde_json::to_string(&shapes).unwrap());
+        Map {
+            shapes: Arc::new(serde_json::from_str(&std::fs::read_to_string("./maps/MapC.json").unwrap()).unwrap()),
+        }
+    }
+
+    pub fn map_from_file(path: &str) -> Self {
+        Map {
+            shapes: Arc::new(serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap()),
         }
     }
 
