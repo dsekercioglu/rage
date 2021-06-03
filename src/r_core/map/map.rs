@@ -1013,7 +1013,6 @@ impl Map {
                 source = pos;
                 angle = Self::get_bounce(pos, angle, shape);
             } else {
-                println!("{}", bounces.len());
                 return BulletTrajectory::new(bounces);
             }
         }

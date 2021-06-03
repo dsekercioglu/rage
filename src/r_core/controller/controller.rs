@@ -74,7 +74,7 @@ impl Controller {
     }
 }
 
-const ANGLE_CNT: usize = 180;
+const ANGLE_CNT: usize = 720;
 const PROJECT_DIST: f32 = 200f32;
 
 pub struct MinimumDangerController {
@@ -199,8 +199,6 @@ impl MinimumDangerController {
             }
         }
 
-        println!("{:?}", &check_bullet);
-
         let mut dodge = false;
         let mut shoot = false;
         for (index, p_pos) in self.angles.iter().enumerate() {
@@ -238,8 +236,6 @@ impl MinimumDangerController {
 
         let mut turn_amt = Self::relative_angle(-Self::angle(target) - state.bot.r);
 
-        println!("turn: {} target: {} current: {} danger: {}", turn_amt, -Self::angle(target), state.bot.r, lowest_danger);
-
         let mut move_dir = 1f32;
         if dodge && turn_amt.abs() > std::f32::consts::FRAC_PI_2 {
             move_dir *= -1f32;
@@ -249,7 +245,6 @@ impl MinimumDangerController {
                 turn_amt += std::f32::consts::PI;
             }
         }
-        println!("shoot: {}", shoot);
         let final_shoot = turn_amt.abs() < (100f32 / state.dist) && shoot && state.bot.can_fire;
         let turn_amt = if turn_amt.abs() < (100f32 / state.dist) || final_shoot {
             0f32
