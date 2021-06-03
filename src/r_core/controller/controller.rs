@@ -216,9 +216,7 @@ impl MinimumDangerController {
                 let dist = (pos - rc.1).sq_magnitude().sqrt();
                 danger += 1f32 / (1f32 + dist);
                 let dist = (pos - state.opp.pos).sq_magnitude().sqrt();
-                if dist > 400f32 {
-                    danger -= 10f32 / (1f32 + (dist.powi(2)));
-                }
+                danger -= 100f32 / (1f32 + (dist.powi(2)));
                 if !dodge && self.bullet_check(Self::angle(index), state) {
                     danger -= 1f32 / (1f32 + (Self::angle(index) - state.abs_bearing).abs());
                     shoot = true;
@@ -245,8 +243,8 @@ impl MinimumDangerController {
                 turn_amt += std::f32::consts::PI;
             }
         }
-        let final_shoot = turn_amt.abs() < (100f32 / state.dist) && shoot && state.bot.can_fire;
-        let turn_amt = if turn_amt.abs() < (100f32 / state.dist) || final_shoot {
+        let final_shoot = turn_amt.abs() < (50f32 / state.dist) && shoot && state.bot.can_fire;
+        let turn_amt = if turn_amt.abs() < (50f32 / state.dist) || final_shoot {
             0f32
         } else {
             turn_amt.signum()
