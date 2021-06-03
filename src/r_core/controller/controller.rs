@@ -74,8 +74,8 @@ impl Controller {
     }
 }
 
-const ANGLE_CNT: usize = 720;
-const PROJECT_DIST: f32 = 150f32;
+const ANGLE_CNT: usize = 180;
+const PROJECT_DIST: f32 = 200f32;
 
 pub struct MinimumDangerController {
     angles: [Vec2; ANGLE_CNT],
@@ -125,13 +125,13 @@ impl MinimumDangerController {
     pub fn bullet_check(&self, angle: f32, state: State) -> bool {
         let bot = RotRect {
             pos: state.bot.pos,
-            w_h: Vec2::new(79.6129 * 0.5, 124.67 * 0.5),
+            w_h: Vec2::new(79.6129, 124.67),
             rot: state.bot.r,
         };
 
         let enemy = RotRect {
             pos: state.opp.pos,
-            w_h: Vec2::new(79.6129 * 0.25, 124.67 * 0.25),
+            w_h: Vec2::new(79.6129, 124.67),
             rot: state.opp.r,
         };
         let cos_sin = Vec2::from_angle(angle);
@@ -146,7 +146,7 @@ impl MinimumDangerController {
             100,
         );
         let mut start = false;
-        for i in 0..600 {
+        for i in 0..602 {
             let time = i as f32 / 100f32;
             let pos = trajectory.position_in(time);
             if let Some(pos) = pos {
@@ -180,25 +180,27 @@ impl MinimumDangerController {
 
             if !self.map.intersects(pos) {
                 if let Some(b_0) = bullet_0 {
-                    danger += 2000f32 / (1f32 + (b_0.pos() - pos).sq_magnitude().sqrt());
+                    danger += 5000f32 / (1f32 + (b_0.pos() - pos).sq_magnitude());
                     dodge = true;
                 }
                 if let Some(b_1) = bullet_1 {
-                    danger += 2000f32 / (1f32 + (b_1.pos() - pos).sq_magnitude().sqrt());
+                    danger += 5000f32 / (1f32 + (b_1.pos() - pos).sq_magnitude());
                     dodge = true;
                 }
 
                 let angle_from = Self::relative_angle((pos - state.opp.pos).angle() - state.opp.r);
 
-                danger += 1f32 / (1f32 + angle_from.powi(2));
+                //danger += 1f32 / (1f32 + angle_from.powi(2));
 
                 let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..200)[0];
                 let dist = (pos - rc.1).sq_magnitude().sqrt();
                 danger += 1f32 / (1f32 + dist);
-                danger -= 1f32 / (1f32 + ((pos - state.opp.pos).sq_magnitude().sqrt() - 100f32).powi(2));
-
+                let dist = (pos - state.opp.pos).sq_magnitude().sqrt();
+                if dist < 400f32 || dist > 800f32{
+                    danger -= 10f32 / (1f32 + ((pos - state.opp.pos).sq_magnitude().sqrt() - 600f32).powi(2));
+                }
                 if !dodge && self.bullet_check(Self::angle(index), state) {
-                    danger -= 100f32 / (1f32 + (Self::angle(index) - state.abs_bearing).abs());
+                    danger -= 1f32 / (1f32 + (Self::angle(index) - state.abs_bearing).abs());
                     shoot = true;
                 }
 
@@ -225,6 +227,7 @@ impl MinimumDangerController {
                 turn_amt += std::f32::consts::PI;
             }
         }
+        println!("shoot: {}", shoot);
         let final_shoot = turn_amt.abs() < (100f32 / state.dist) && shoot && state.bot.can_fire;
         let turn_amt = if turn_amt.abs() < (100f32 / state.dist) || final_shoot {
             0f32
