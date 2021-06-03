@@ -208,7 +208,7 @@ impl MinimumDangerController {
 
             if !self.map.intersects(pos) {
                 for &b_0 in &check_bullet {
-                    danger += 1000f32 / (1f32 + (b_0 - pos).sq_magnitude());
+                    danger += 5000f32 / (1f32 + (b_0 - pos).sq_magnitude().sqrt());
                     dodge = true;
                 }
                 let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..200)[0];
