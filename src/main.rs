@@ -87,8 +87,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::blocking::Client::new();
     let environment = Arc::new(Mutex::new(Env::new(10)));
-    //
-    let map = Arc::new(Map::new_map_c()/*Map::map_from_file(map.unwrap())*/);
+    let map = Arc::new(Map::map_from_file(map.unwrap()));
     let mut controller = Controller::new(environment.clone(), map.clone(), team);
 
     let time = Instant::now();

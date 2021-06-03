@@ -25,8 +25,11 @@ impl BulletTrajectory {
     pub fn new(bounces: Vec<Vec2>) -> Self {
         let mut times = vec![0f32];
         let prev = bounces[0];
+        let mut dist_so_far = 0f32;
         for bounce in bounces.iter().skip(1) {
-            times.push((prev - *bounce).sq_magnitude().sqrt() / BULLET_VEL);
+            let extra = (prev - *bounce).sq_magnitude().sqrt() / BULLET_VEL;
+            times.push(dist_so_far + extra);
+            dist_so_far += extra;
         }
         Self {
             bounces,
@@ -43,8 +46,8 @@ impl BulletTrajectory {
         if index == 0 {
             Some(self.bounces[0])
         } else if index < self.times.len() - 1 {
-            let way_through = time / (self.times[index] - self.times[index - 1]);
-            Some(self.bounces[index] + (self.bounces[index + 1] - self.bounces[index]) * way_through)
+            let way_through = (time - self.times[index - 1]) / (self.times[index - 1] - self.times[index]);
+            Some(self.bounces[index - 1] + (self.bounces[index] - self.bounces[index - 1]) * way_through)
         } else {
             None
         }
@@ -151,11 +154,11 @@ impl Shape {
     }
 }
 
-const CONTAINER_SIDE: Vec2 = Vec2::new(63.5487 * 1.05, 31.6329 * 1.05);
-const CONTAINER_AREA: Vec2 = Vec2::new(63.5487 * 1.05, 31.6329 * 1.05);
-const CAR_A_B: Vec2 = Vec2::new(36.046 *1.05, 14.837 * 1.05);
-const CAR_C: Vec2 = Vec2::new(33.878 * 1.05, 13.789 * 1.05);
-const BARREL: f32 = 61.0818 * 0.305;
+const CONTAINER_SIDE: Vec2 = Vec2::new(63.5487 * 2.05, 31.6329 * 2.05);
+const CONTAINER_AREA: Vec2 = Vec2::new(63.5487 * 2.05, 31.6329 * 2.05);
+const CAR_A_B: Vec2 = Vec2::new(36.046 * 2.05, 14.837 * 2.05);
+const CAR_C: Vec2 = Vec2::new(33.878 * 2.05, 13.789 * 2.05);
+const BARREL: f32 = 61.0818 * 0.605;
 
 const SIDE_POS_A: Vec2 = Vec2::new(128.915, 106.215);
 
@@ -298,10 +301,10 @@ impl Map {
             pos: SIDE_POS_A + Vec2::new(515.085, 356.985),
             w_h: CONTAINER_AREA,
         }, Rect {
-            pos: SIDE_POS_A+ Vec2::new(801.926, 358.89),
+            pos: SIDE_POS_A + Vec2::new(801.926, 358.89),
             w_h: CONTAINER_AREA,
         }, Rect {
-            pos: SIDE_POS_A+Vec2::new(-41.4074, 180.834),
+            pos: SIDE_POS_A +Vec2::new(-41.4074, 180.834),
             w_h: CONTAINER_AREA,
         }, Rect {
             pos: SIDE_POS_A+Vec2::new(79.9876, 180.834),
