@@ -74,8 +74,8 @@ impl Controller {
     }
 }
 
-const ANGLE_CNT: usize = 360;
-const PROJECT_DIST: f32 = 200f32;
+const ANGLE_CNT: usize = 720;
+const PROJECT_DIST: f32 = 150f32;
 
 pub struct MinimumDangerController {
     angles: [Vec2; ANGLE_CNT],
