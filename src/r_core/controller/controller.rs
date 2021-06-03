@@ -195,7 +195,7 @@ impl MinimumDangerController {
                 let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..200)[0];
                 let dist = (pos - rc.1).sq_magnitude().sqrt();
                 danger += 1f32 / (1f32 + dist);
-                danger -= 1f32 / (1f32 + ((pos - state.opp.pos).sq_magnitude().sqrt() - 400f32).powi(2));
+                danger -= 1f32 / (1f32 + ((pos - state.opp.pos).sq_magnitude().sqrt() - 100f32).powi(2));
 
                 if !dodge && self.bullet_check(Self::angle(index), state) {
                     danger -= 100f32 / (1f32 + (Self::angle(index) - state.abs_bearing).abs());
