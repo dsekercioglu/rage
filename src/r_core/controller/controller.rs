@@ -225,7 +225,7 @@ impl MinimumDangerController {
                 turn_amt += std::f32::consts::PI;
             }
         }
-        let final_shoot = turn_amt.abs() < Self::angle(5) && shoot && state.bot.can_fire;
+        let final_shoot = turn_amt.abs() < Self::angle(20) && shoot && state.bot.can_fire;
         let turn_amt = if turn_amt.abs() < Self::angle(5) || final_shoot {
             0f32
         } else {
