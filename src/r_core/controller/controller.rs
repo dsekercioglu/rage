@@ -180,11 +180,11 @@ impl MinimumDangerController {
 
             if !self.map.intersects(pos) {
                 if let Some(b_0) = bullet_0 {
-                    danger += 2500f32 / (1f32 + (b_0.pos() - pos).sq_magnitude().sqrt());
+                    danger += 2000f32 / (1f32 + (b_0.pos() - pos).sq_magnitude().sqrt());
                     dodge = true;
                 }
                 if let Some(b_1) = bullet_1 {
-                    danger += 2500f32 / (1f32 + (b_1.pos() - pos).sq_magnitude().sqrt());
+                    danger += 2000f32 / (1f32 + (b_1.pos() - pos).sq_magnitude().sqrt());
                     dodge = true;
                 }
 
