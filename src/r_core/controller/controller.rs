@@ -168,7 +168,6 @@ impl MinimumDangerController {
     pub fn action(&mut self, delta_time: f32, state: State, bullet_0: Option<Bullet>, bullet_1: Option<Bullet>) -> (f32, f32, bool) {
         let mut lowest_danger = f32::INFINITY;
         let mut target = 0;
-        let mut danger = 0f32;
 
 
         let mut check_bullet = vec![];
@@ -209,10 +208,10 @@ impl MinimumDangerController {
 
             if !self.map.intersects(pos) {
                 for &b_0 in &check_bullet {
-                    danger += 5000f32 / (1f32 + (b_0 - pos).sq_magnitude());
+                    danger += 500f32 / (1f32 + (b_0 - pos).sq_magnitude());
                     dodge = true;
                 }
-                let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..400)[0];
+                let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..200)[0];
                 let dist = (pos - rc.1).sq_magnitude().sqrt();
                 danger += 1f32 / (1f32 + dist);
                 let dist = (pos - state.opp.pos).sq_magnitude().sqrt();
@@ -223,7 +222,7 @@ impl MinimumDangerController {
                 }
 
                 let diff = Self::angle(index) - state.abs_bearing;
-                danger -= 10f32 / (1f32 + Self::relative_angle(diff).powi(2));
+                danger -= 100f32 / (1f32 + Self::relative_angle(diff).powi(2));
                 if danger < lowest_danger {
                     lowest_danger = danger;
                     target = index;
