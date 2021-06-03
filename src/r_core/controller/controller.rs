@@ -74,7 +74,7 @@ impl Controller {
     }
 }
 
-const ANGLE_CNT: usize = 720;
+const ANGLE_CNT: usize = 180;
 const PROJECT_DIST: f32 = 200f32;
 
 pub struct MinimumDangerController {
@@ -208,7 +208,7 @@ impl MinimumDangerController {
 
             if !self.map.intersects(pos) {
                 for &b_0 in &check_bullet {
-                    danger += 500f32 / (1f32 + (b_0 - pos).sq_magnitude());
+                    danger += 50f32 / (1f32 + (b_0 - pos).sq_magnitude());
                     dodge = true;
                 }
                 let rc = self.map.ray_cast(state.bot.pos, &[Self::angle(index)], 1f32, 0..200)[0];
